@@ -13,7 +13,25 @@ const userIdAndNameFragment = graphql(`
   }
 `);
 
-const query = graphql(`
+const userQuery = graphql(`
+  query user($id: ID!) {
+    user(id: $id) {
+      ...UserNameFragment
+    }
+  }
+`);
+
+const usersQuery = graphql(`
+  query users {
+    users {
+      ...UserIdAndNameFragment
+    }
+  }
+`);
+
+// 検証用
+graphql(`
+
 `)
 
 export default function Home() {

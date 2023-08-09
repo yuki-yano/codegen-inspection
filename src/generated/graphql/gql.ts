@@ -15,6 +15,8 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
 const documents = {
     "\n  fragment UserNameFragment on User {\n    name\n  }\n": types.UserNameFragmentFragmentDoc,
     "\n  fragment UserIdAndNameFragment on User {\n    id\n    name\n  }\n": types.UserIdAndNameFragmentFragmentDoc,
+    "\n  query user($id: ID!) {\n    user(id: $id) {\n      ...UserNameFragment\n    }\n  }\n": types.UserDocument,
+    "\n  query users {\n    users {\n      ...UserIdAndNameFragment\n    }\n  }\n": types.UsersDocument,
 };
 
 /**
@@ -39,6 +41,14 @@ export function graphql(source: "\n  fragment UserNameFragment on User {\n    na
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(source: "\n  fragment UserIdAndNameFragment on User {\n    id\n    name\n  }\n"): (typeof documents)["\n  fragment UserIdAndNameFragment on User {\n    id\n    name\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  query user($id: ID!) {\n    user(id: $id) {\n      ...UserNameFragment\n    }\n  }\n"): (typeof documents)["\n  query user($id: ID!) {\n    user(id: $id) {\n      ...UserNameFragment\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  query users {\n    users {\n      ...UserIdAndNameFragment\n    }\n  }\n"): (typeof documents)["\n  query users {\n    users {\n      ...UserIdAndNameFragment\n    }\n  }\n"];
 
 export function graphql(source: string) {
   return (documents as any)[source] ?? {};
